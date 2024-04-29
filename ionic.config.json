@@ -1,0 +1,7 @@
+{
+  "name": "random-country-ionic-angular",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

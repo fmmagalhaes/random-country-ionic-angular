@@ -1,0 +1,20 @@
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <div *ngIf="currentCountry; else loading">
+      <img [src]="currentCountry.flag" style="margin-bottom: 10px; width: 300px;"/>
+      <app-country-property property="Name" [value]="currentCountry.name"></app-country-property>
+      <app-country-property property="Region" [value]="currentCountry.region"></app-country-property>
+      <app-country-property *ngIf="currentCountry.capital" property="Capital" [value]="currentCountry.capital"></app-country-property>
+      <app-country-property property="Population" [value]="currentCountry.population.toLocaleString('en-US')"></app-country-property>
+    </div>
+    <ng-template #loading>
+      <ion-spinner></ion-spinner>
+    </ng-template>
+  </div>
+</ion-content>
+
+<ion-fab (click)="onRefreshButtonClick()" slot="fixed" vertical="bottom" horizontal="end" class="refresh-button">
+  <ion-fab-button>
+    <ion-icon name="refresh"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
