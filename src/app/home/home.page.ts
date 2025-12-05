@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IonButton, IonContent, IonFab, IonFabButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
+import { IonContent, IonFab, IonFabButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import * as ionIcons from 'ionicons/icons';
 import { CountryPropertyComponent } from '../country-property/country-property.component';
@@ -17,7 +17,7 @@ class Country {
     this.name = json['name']['common'];
     this.region = json['region'];
     this.population = json['population'];
-    this.flag = json['flags'][0];
+    this.flag = json['flags']['png'];
     this.capital = json['capital'] ? json['capital'][0] : null;
     this.population = json['population'];
   }
@@ -28,7 +28,7 @@ class Country {
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonContent, HttpClientModule, IonFab, IonIcon, IonFabButton, IonButton, NgIf, IonSpinner, CountryPropertyComponent],
+  imports: [IonContent, HttpClientModule, IonFab, IonIcon, IonFabButton, NgIf, IonSpinner, CountryPropertyComponent],
 })
 export class HomePage implements OnInit {
   countries: Country[] = [];
@@ -44,7 +44,7 @@ export class HomePage implements OnInit {
 
   fetchAllCountries(): void {
     this.http
-      .get<string[]>(`https://restcountries.com/v3/all`)
+      .get<string[]>(`https://restcountries.com/v3.1/all?fields=name,capital,flags,population,region`)
       .subscribe({
         next: (v) => {
           this.countries = v.map(item => new Country(item));
